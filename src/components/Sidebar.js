@@ -73,26 +73,32 @@ const Sidebar = () => {
   };
 
   const sports = (sportList) => {
-    return sportList.map((sport, i) => (
-      <li className={styles.sport__list__item} key={i}>
-        <a
-          href="/"
-          className={styles.sport__toggle}
-          data-selected={sportSelected === i}
-          onClick={(e) => handleSportItemSelected(e, i)}
-        >
-          <span>
-            {icon(sport.N)}
-            {sport.N === "American Football" ? "Am. Football" : sport.N}
-          </span>
-          <span>
-            {sport.C}
-            <i className="fa-solid fa-caret-right"></i>
-          </span>
-        </a>
-        <ul className={styles.country__list}>{countries(sport.Ct, i)}</ul>
-      </li>
-    ));
+    return sportList.map((sport, i) => {
+      // const customFont = {};
+      // if (sport.N.length > 10) customFont["--font-size"] = "2rem";
+      return (
+        <li className={styles.sport__list__item} key={i}>
+          <a
+            href="/"
+            className={styles.sport__toggle}
+            data-selected={sportSelected === i}
+            onClick={(e) => handleSportItemSelected(e, i)}
+          >
+            <span
+              style={sport.N.length > 10 ? { "--font-size": "0.8rem" } : {}}
+            >
+              {icon(sport.N)}
+              {sport.N}
+            </span>
+            <span>
+              {sport.C}
+              <i className="fa-solid fa-caret-right"></i>
+            </span>
+          </a>
+          <ul className={styles.country__list}>{countries(sport.Ct, i)}</ul>
+        </li>
+      );
+    });
   };
 
   const countries = (countryList, sportIndex) => {
@@ -117,7 +123,12 @@ const Sidebar = () => {
                 }}
                 alt="FLAG"
               />
-              <p>{country.N}</p>
+              <p
+                className={styles.country__name}
+                style={country.N.length > 10 ? { "--font-size": "0.8rem" } : {}}
+              >
+                {country.N}
+              </p>
             </div>
             <span>{country.C}</span>
           </a>
@@ -141,7 +152,7 @@ const Sidebar = () => {
             }
             onClick={(e) => handleTournamentItemSelected(e, i, tournament.Id)}
           >
-            <p>{tournament.N}</p>
+            <p className={styles.tournament__name}>{tournament.N}</p>
           </a>
         </li>
       );

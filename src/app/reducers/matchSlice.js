@@ -16,14 +16,22 @@ const matchesSlice = createSlice({
   extraReducers(builder) {
     builder.addCase(fetchMatches.fulfilled, (state, action) => {
       state.status = "succeeded";
-      const payload = action.payload.Matches.map((match) => ({
-        date: fns.format(new Date(match.Md), "dd MMM yyyy"),
-        homeTeam: match.Hn,
-        awayTeam: match.An,
-        1: match.Markets["50"][0].OddsValue,
-        X: match.Markets["50"][1].OddsValue,
-        2: match.Markets["50"][2].OddsValue,
-      }));
+      console.log(action.payload.Matches);
+      const payload = action.payload.Matches.map((match) => {
+        const bet = Object.keys(match.Markets).reduce((acc, curr) => {
+          return Number(curr) < acc ? Number(curr) : acc;
+        }, Infinity);
+        return {
+          date: fns.format(new Date(match.Md), "dd MMM"),
+          time: fns.format(new Date(match.Md), "hh:mm"),
+          homeTeam: match.Hn,
+          awayTeam: match.An,
+          1: match.Markets[bet][0].OddsValue,
+          X: match.Markets[bet][2] ? match.Markets[bet][1].OddsValue : null,
+          2: match.Markets[bet][match.Markets[bet].length - 1].OddsValue,
+          oddsCount: match.C,
+        };
+      });
 
       state.value = [...payload];
     });

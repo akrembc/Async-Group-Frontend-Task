@@ -75,6 +75,13 @@
               &:focus {
                 background-color: #555;
               }
+
+              > .tournament__name {
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                max-width: 15rem;
+              }
             }
           }
         }
@@ -92,11 +99,20 @@
 
           .country__items {
             display: flex;
+            align-items: center;
 
             img {
               margin-inline-end: max(0.5rem, 2vw);
               max-width: 2rem;
               display: inline-block;
+            }
+
+            .country__name {
+              font-size: var(--font-size, 1rem);
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              max-width: 7.5rem;
             }
           }
 
@@ -137,8 +153,16 @@
       transition: transform 150ms linear;
     }
 
-    span:first-of-type i {
-      margin-inline-end: 0.8rem;
+    span:first-of-type {
+      font-size: var(--font-size, 1rem);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 7.5rem;
+      i {
+        font-size: 1rem;
+        margin-inline-end: 0.8rem;
+      }
     }
 
     .country__list {

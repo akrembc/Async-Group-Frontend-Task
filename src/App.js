@@ -6,12 +6,10 @@ import "./styles/_main.scss";
 
 function App() {
   return (
-    <main>
+    <main className="main">
       {/* <TournamentList id={1} /> */}
       <Sidebar />
-      <div style={{ minWidth: "60vw" }}>
-        <MatchList />
-      </div>
+      <MatchList />
       <div></div>
     </main>
   );
