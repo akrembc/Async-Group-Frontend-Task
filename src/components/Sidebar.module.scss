@@ -1,0 +1,166 @@
+.sidebar {
+  min-width: 15rem;
+  .sport__list {
+    color: #ddd;
+    background-color: #444;
+    list-style: none;
+    min-height: 100%;
+    max-height: 100%;
+    overflow: auto;
+    padding: 0;
+    margin: 0;
+    /* reserve space for scrollbar for stable animation .. not yet supported by safari */
+    scrollbar-gutter: stable both-edges;
+
+    &::-webkit-scrollbar {
+      width: 0.5em;
+    }
+
+    &::-webkit-scrollbar-track {
+      box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: darkgrey;
+      outline: 1px solid slategrey;
+    }
+
+    &__item {
+      margin: 0;
+      min-width: 12em;
+
+      .country__list {
+        max-height: 0;
+        transition: max-height 0.15s ease-out;
+        overflow-y: hidden;
+
+        color: #ddd;
+        background-color: #444;
+        list-style: none;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        padding: 0;
+        margin: 0;
+
+        &__item {
+          margin: 0;
+          min-width: 12em;
+
+          .tournament__list {
+            max-height: 0;
+            transition: max-height 0.15s ease-out;
+            overflow: hidden;
+
+            color: #ddd;
+            background-color: #444;
+            list-style: none;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            padding: 0;
+            margin: 0;
+
+            .tournament__toggle {
+              background-color: #222;
+              color: inherit;
+              display: flex;
+              align-items: center;
+              padding: 1em 1.5em;
+              text-decoration: none;
+              // font-size: clamp(0.8rem, 0.5rem + 1vw, 2rem);
+              white-space: nowrap;
+
+              &:hover,
+              &:focus {
+                background-color: #555;
+              }
+            }
+          }
+        }
+
+        .country__toggle {
+          background-color: #777;
+          color: inherit;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 0.8em 1em;
+          text-decoration: none;
+          // font-size: clamp(0.8rem, 0.5rem + 1vw, 2rem);
+          white-space: nowrap;
+
+          .country__items {
+            display: flex;
+
+            img {
+              margin-inline-end: max(0.5rem, 2vw);
+              max-width: 2rem;
+              display: inline-block;
+            }
+          }
+
+          &:hover,
+          &:focus {
+            background-color: #333;
+          }
+        }
+        .tournament__list {
+          max-height: 0em;
+          transition: max-height 0.25s ease-in; // delay instead !?
+        }
+
+        .country__toggle[data-selected="true"] {
+          & + .tournament__list {
+            max-height: 100%;
+            transition: max-height 0.25s ease-in;
+          }
+        }
+      }
+    }
+  }
+
+  .sport__toggle {
+    background-color: #555;
+    color: inherit;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1em;
+    text-decoration: none;
+    // font-size: clamp(0.8rem, 0.5rem + 1vw, 2rem);
+    white-space: nowrap;
+
+    span:last-of-type i {
+      margin-inline-start: 0.8rem;
+      transform: rotate(0deg);
+      transition: transform 150ms linear;
+    }
+
+    span:first-of-type i {
+      margin-inline-end: 0.8rem;
+    }
+
+    .country__list {
+      max-height: 0em;
+      transition: max-height 0.25s ease-in;
+    }
+
+    &:hover,
+    &:focus {
+      background-color: #222;
+    }
+  }
+
+  .sport__toggle[data-selected="true"] {
+    & + .country__list {
+      max-height: 100%;
+      transition: max-height 0.25s ease-in;
+    }
+
+    i[class*="fa-caret-right"] {
+      transform: rotate(90deg);
+      transition: transform 150ms linear;
+    }
+  }
+}

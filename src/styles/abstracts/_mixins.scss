@@ -1,0 +1,43 @@
+@use "./variables" as *;
+
+@mixin mq($key, $minmax: "min", $offset: 0) {
+  $size: map-get($breakpoints, $key) + $offset;
+
+  @media only screen and (#{$minmax}-width: $size) {
+    @content;
+  }
+}
+
+@mixin pseudo(
+  $loc: "both",
+  $content: "",
+  $pos: absolute,
+  $top: 0,
+  $bottom: 0,
+  $right: 0,
+  $left: 0,
+  $locate: () /* top, botom, right, left inset yo stupid */
+) {
+  position: relative;
+
+  @if $loc == "both" {
+    &::before,
+    &::after {
+      content: $content;
+      position: $pos;
+      @each $key, $value in $locate {
+        #{$key}: $value;
+      }
+      @content;
+    }
+  } @else {
+    &::#{$loc} {
+      content: $content;
+      position: $pos;
+      @each $key, $value in $locate {
+        #{$key}: $value;
+      }
+      @content;
+    }
+  }
+}
