@@ -5,7 +5,7 @@ import { selectMatches } from "../app/reducers/matchSlice";
 import { fetchMatches } from "../app/actionCreators/matches";
 import { selectTournament } from "../app/reducers/tournamentSlice";
 
-const UsersList = () => {
+const MatchList = () => {
   const dispatch = useDispatch();
   // const dis = useMemo(() => dispatch, [dispatch])
 
@@ -50,4 +50,4 @@ const UsersList = () => {
   );
 };
 
-export default UsersList;
+export default MatchList;
