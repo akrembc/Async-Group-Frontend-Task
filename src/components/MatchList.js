@@ -4,13 +4,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { selectMatches } from "../app/reducers/matchSlice";
 import { fetchMatches } from "../app/actionCreators/matches";
 import { selectTournament } from "../app/reducers/tournamentSlice";
+import OddsButton from "./ui/OddsButton";
 import styles from "./MatchList.module.scss";
-
-// select random buttons for custom stylings
-// it got be done by state management later
-// const arbitraryStyling = {
-//   selectedButton: ;
-// }
 
 const MatchList = () => {
   const dispatch = useDispatch();
@@ -37,9 +32,9 @@ const MatchList = () => {
 
       <ul className={styles.match__list}>
         {matches &&
-          matches.map((match, i) => {
+          matches.map((match, matchIndex) => {
             return (
-              <li key={i} className={styles.match__item}>
+              <li key={matchIndex} className={styles.match__item}>
                 <div className={styles.match__details}>
                   <div className={styles.match__datetime}>
                     <small className={styles.match__date}>{match.date}</small>
@@ -56,41 +51,20 @@ const MatchList = () => {
                 </div>
                 <span className={styles.match__bets}>
                   <ul className={styles.match__odds}>
-                    <li data-oddName="1">
-                      <button
-                        // arbitrary choose a match to apply styling for button
-                        data-btn-selected={`${i === 1 ? "true" : "false"}`}
-                        className="btn"
-                      >
-                        {match["1"]}
-                      </button>
-                    </li>
-                    {match.X && (
-                      <li data-oddName="X">
-                        <button
-                          // arbitrary choose a match to apply styling for button
-                          data-btn-increase={`${i === 2 ? "true" : "false"}`}
-                          className="btn"
+                    {match.oddsList.map((odds, oddIndex) => {
+                      return odds.ref !== "X" || odds.value ? (
+                        <li
+                          data-odds-name={odds.ref}
+                          key={`${match.id}_${oddIndex}`}
                         >
-                          {i === 2 ? (
-                            <i className="fa-solid fa-caret-up"></i>
-                          ) : null}
-                          {match["X"]}
-                        </button>
-                      </li>
-                    )}
-                    <li data-oddName="2">
-                      <button
-                        // arbitrary choose a match to apply styling for button
-                        data-btn-decrease={`${i === 0 ? "true" : "false"}`}
-                        className="btn"
-                      >
-                        {i === 0 ? (
-                          <i className="fa-solid fa-caret-down"></i>
-                        ) : null}
-                        {match["2"]}
-                      </button>
-                    </li>
+                          <OddsButton
+                            content={odds.value}
+                            selected={false}
+                            upDown={odds.upDown}
+                          />
+                        </li>
+                      ) : null;
+                    })}
                   </ul>
                   <span className={styles["match__oddsCount"]}>
                     +{match.oddsCount}

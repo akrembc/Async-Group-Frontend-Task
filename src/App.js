@@ -2,6 +2,7 @@
 
 import Sidebar from "./components/Sidebar";
 import MatchList from "./components/MatchList";
+import Ticket from "./components/Ticket";
 import "./styles/_main.scss";
 
 function App() {
@@ -10,7 +11,7 @@ function App() {
       {/* <TournamentList id={1} /> */}
       <Sidebar />
       <MatchList />
-      <div></div>
+      <Ticket />
     </main>
   );
 }

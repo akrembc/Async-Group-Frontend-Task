@@ -22,13 +22,33 @@ const matchesSlice = createSlice({
           return Number(curr) < acc ? Number(curr) : acc;
         }, Infinity);
         return {
+          id: match.Aid,
           date: fns.format(new Date(match.Md), "dd MMM"),
           time: fns.format(new Date(match.Md), "hh:mm"),
           homeTeam: match.Hn,
           awayTeam: match.An,
-          1: match.Markets[bet][0].OddsValue,
-          X: match.Markets[bet][2] ? match.Markets[bet][1].OddsValue : null,
-          2: match.Markets[bet][match.Markets[bet].length - 1].OddsValue,
+          oddsList: [
+            {
+              ref: "1",
+              value: match.Markets[bet][0].OddsValue,
+              upDown: match.Markets[bet][0].UpDown,
+            },
+            {
+              ref: "X",
+              value: match.Markets[bet][2]
+                ? match.Markets[bet][1].OddsValue
+                : null,
+              upDown: match.Markets[bet][2]
+                ? match.Markets[bet][1].UpDown
+                : null,
+            },
+            {
+              ref: "2",
+              value:
+                match.Markets[bet][match.Markets[bet].length - 1].OddsValue,
+              upDown: match.Markets[bet][match.Markets[bet].length - 1].UpDown,
+            },
+          ],
           oddsCount: match.C,
         };
       });

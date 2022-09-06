@@ -52,7 +52,7 @@
   }
 
   &:first-child .match__odds > *::before {
-    content: attr(data-oddName);
+    content: attr(data-odds-name);
     color: #777;
     font-weight: bolder;
     position: absolute;
@@ -95,7 +95,7 @@
   .match__odds {
     list-style: none;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     gap: 0.5rem;
     padding: 0;
@@ -113,6 +113,7 @@
   // even with [class*="match__odds-count"]
   .match__oddsCount {
     margin-inline: 1rem;
+    min-width: 2.5rem;
     font-style: italic;
   }
 }
@@ -126,7 +127,7 @@
     &:focus,
     &:hover {
       background-color: #2b2933;
-      outline: 4px solid #222;
+      outline: 4px solid #373441;
       outline-offset: -4px;
     }
   }
